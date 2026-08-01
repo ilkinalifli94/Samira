@@ -27,7 +27,6 @@
             color: #fff;
         }
 
-        /* Ambient Parıltılar */
         .glow {
             position: fixed;
             width: 350px;
@@ -45,7 +44,6 @@
             100% { transform: scale(1.2) translate(10%, 10%); }
         }
 
-        /* Əsas Kart */
         .story-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(25px);
@@ -79,7 +77,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* HƏRƏKƏTLİ ŞƏKİL ÇƏRÇİVƏSİ */
+        /* Hərəkətli Şəkil Çərçivəsi */
         .photo-frame {
             width: 100%;
             height: 230px;
@@ -96,20 +94,14 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* Şəklə canlı hərəkət verən animasiya */
             animation: smoothZoom 5s infinite alternate ease-in-out;
         }
 
         @keyframes smoothZoom {
-            0% {
-                transform: scale(1) rotate(0deg);
-            }
-            100% {
-                transform: scale(1.12) rotate(1.5deg);
-            }
+            0% { transform: scale(1) rotate(0deg); }
+            100% { transform: scale(1.12) rotate(1.5deg); }
         }
 
-        /* İnteraktiv Tort Və Şamlar */
         .cake-container {
             margin: 15px 0 10px;
             cursor: pointer;
@@ -135,7 +127,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Mesaj Qutusu */
         .message-box {
             background: rgba(255, 255, 255, 0.04);
             border-left: 3px solid #38bdf8;
@@ -153,7 +144,6 @@
             font-weight: 700;
         }
 
-        /* Düymə */
         .btn-action {
             background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
             color: #fff;
@@ -168,11 +158,6 @@
             width: 100%;
         }
 
-        .btn-action:active {
-            transform: scale(0.97);
-        }
-
-        /* 2-ci Arzu Ekranı */
         .wish-screen {
             display: none;
             opacity: 0;
@@ -189,17 +174,19 @@
 
     <div class="glow"></div>
 
+    <!-- Səs Faylı (GitHub-a "ses.mp3" adı ilə yüklədiyin fayl) -->
+    <audio id="audioPlayer" src="ses.mp3" preload="auto"></audio>
+
     <!-- 1-ci Ekran -->
     <div class="story-card" id="mainStory">
         <span class="badge-title">Happy Birthday</span>
         <h1>Samirə 🎉</h1>
 
         <div class="photo-frame">
-            <!-- İSTƏSƏNİZ BURADAKI LINKI SAMİRƏ VƏ YA BİRLİKDƏ İŞTİRAK ETDİYİNİZ ŞƏKİL LİNKİ İLƏ ƏVƏZ EDƏ BİLƏRSİNİZ -->
-            <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=1000&auto=format&fit=crop" alt="Birthday Image" id="animatedImg">
+            <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=1000&auto=format&fit=crop" alt="Birthday Image">
         </div>
 
-        <!-- Tort və Şam Söndürmə Effekti -->
+        <!-- Tort və Şam Söndürmə İnteraktivi -->
         <div class="cake-container" onclick="blowCandle()">
             <div class="cake-icon" id="cakeEmoji">🎂</div>
         </div>
@@ -228,8 +215,12 @@
 
     <script>
         let candleBlown = false;
+        const audio = document.getElementById('audioPlayer');
 
         function blowCandle() {
+            // Torta basılan an səs avtomatik oxunmağa başlayır
+            audio.play().catch(e => console.log("Audio oxutma xətası:", e));
+
             if (!candleBlown) {
                 document.getElementById('cakeEmoji').innerText = '🍰';
                 
