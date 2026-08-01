@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Doğum Günün Mübarək, Samirə! 🎂✨</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Sacramento&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #1e1b4b 0%, #0f172a 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #fff;
+        }
+
+        /* Ambient Parıltılar */
+        .glow {
+            position: fixed;
+            width: 350px;
+            height: 350px;
+            background: linear-gradient(135deg, #6366f1, #3b82f6);
+            filter: blur(140px);
+            border-radius: 50%;
+            opacity: 0.35;
+            z-index: 1;
+            animation: pulseGlow 6s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(0.9) translate(-10%, -10%); }
+            100% { transform: scale(1.2) translate(10%, 10%); }
+        }
+
+        /* Əsas Kart */
+        .story-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 40px 25px;
+            border-radius: 35px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(99, 102, 241, 0.2);
+            width: 100%;
+            max-width: 440px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .badge-title {
+            font-family: 'Sacramento', cursive;
+            color: #38bdf8;
+            font-size: 42px;
+            display: block;
+            margin-bottom: 5px;
+            text-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* HƏRƏKƏTLİ ŞƏKİL ÇƏRÇİVƏSİ */
+        .photo-frame {
+            width: 100%;
+            height: 230px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 25px;
+            position: relative;
+            background: rgba(0,0,0,0.2);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Şəklə canlı hərəkət verən animasiya */
+            animation: smoothZoom 5s infinite alternate ease-in-out;
+        }
+
+        @keyframes smoothZoom {
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+            100% {
+                transform: scale(1.12) rotate(1.5deg);
+            }
+        }
+
+        /* İnteraktiv Tort Və Şamlar */
+        .cake-container {
+            margin: 15px 0 10px;
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+        }
+
+        .cake-icon {
+            font-size: 75px;
+            filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.5));
+            transition: transform 0.3s ease;
+        }
+
+        .cake-container:hover .cake-icon {
+            transform: scale(1.1);
+        }
+
+        .instruction-hint {
+            font-size: 14px;
+            color: #38bdf8;
+            margin-bottom: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        /* Mesaj Qutusu */
+        .message-box {
+            background: rgba(255, 255, 255, 0.04);
+            border-left: 3px solid #38bdf8;
+            padding: 20px;
+            border-radius: 0 20px 20px 0;
+            text-align: left;
+            margin-bottom: 25px;
+            font-size: 15px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .highlight {
+            color: #38bdf8;
+            font-weight: 700;
+        }
+
+        /* Düymə */
+        .btn-action {
+            background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
+            color: #fff;
+            padding: 15px 35px;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-action:active {
+            transform: scale(0.97);
+        }
+
+        /* 2-ci Arzu Ekranı */
+        .wish-screen {
+            display: none;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .wish-screen.active {
+            display: block;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glow"></div>
+
+    <!-- 1-ci Ekran -->
+    <div class="story-card" id="mainStory">
+        <span class="badge-title">Happy Birthday</span>
+        <h1>Samirə 🎉</h1>
+
+        <div class="photo-frame">
+            <!-- İSTƏSƏNİZ BURADAKI LINKI SAMİRƏ VƏ YA BİRLİKDƏ İŞTİRAK ETDİYİNİZ ŞƏKİL LİNKİ İLƏ ƏVƏZ EDƏ BİLƏRSİNİZ -->
+            <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=1000&auto=format&fit=crop" alt="Birthday Image" id="animatedImg">
+        </div>
+
+        <!-- Tort və Şam Söndürmə Effekti -->
+        <div class="cake-container" onclick="blowCandle()">
+            <div class="cake-icon" id="cakeEmoji">🎂</div>
+        </div>
+        <p class="instruction-hint" id="hintText">✨ Arzu tut və şamları söndürmək üçün torta kliklə! ✨</p>
+
+        <div class="message-box">
+            Dünyanın ən pozitiv, ən yaxşı dostlarından biri! Ad günün mübarək olsun! 🥳<br><br>
+            Yaxşı ki varsan və yaxşı ki sənin kimi səmimi bir dostum var. Yeni yaşında sənə bol şans, uğur və həmişə üzündə təbəssüm arzulayıram! <span class="highlight">Günün mübarək, Samirə! ✨</span>
+        </div>
+
+        <button class="btn-action" onclick="showWish()">Arzularım ✨</button>
+    </div>
+
+    <!-- 2-ci Ekran -->
+    <div class="story-card wish-screen" id="wishStory">
+        <span class="badge-title">Ən Yaxşı Dost</span>
+        <h1>Uğur Həmişə Səninlə Olsun! 🚀</h1>
+        
+        <div class="message-box" style="border-left-color: #6366f1;">
+            Qoy bu yeni yaşın sənə bütün xəyallarını gerçəkləşdirmək üçün yeni qapılar açsın! Həmişə belə şən, enerjili və əla dost olaraq qal.<br><br>
+            <strong style="color: #38bdf8;">Ad günün bir daha mübarək, Samirə! 🎈🎉</strong>
+        </div>
+
+        <button class="btn-action" onclick="restartStory()">Yenidən Bax 🔄</button>
+    </div>
+
+    <script>
+        let candleBlown = false;
+
+        function blowCandle() {
+            if (!candleBlown) {
+                document.getElementById('cakeEmoji').innerText = '🍰';
+                
+                const hintText = document.getElementById('hintText');
+                hintText.innerText = '🎉 Arzun qəbul olundu! Ad günün mübarək, Samirə! ✨';
+                hintText.style.color = '#ffffff';
+                hintText.style.fontSize = '16px';
+                
+                candleBlown = true;
+                fireConfetti();
+            }
+        }
+
+        // Dostluq Konfettisi
+        function fireConfetti() {
+            var count = 250;
+            var defaults = { origin: { y: 0.6 } };
+
+            function fire(particleRatio, opts) {
+                confetti(Object.assign({}, defaults, opts, {
+                    particleCount: Math.floor(count * particleRatio)
+                }));
+            }
+
+            fire(0.25, { spread: 26, startVelocity: 55, colors: ['#38bdf8', '#ffffff'] });
+            fire(0.2, { spread: 60, colors: ['#6366f1', '#3b82f6'] });
+            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+            fire(0.1, { spread: 120, startVelocity: 45 });
+        }
+
+        function showWish() {
+            document.getElementById('mainStory').style.display = 'none';
+            const wishStory = document.getElementById('wishStory');
+            wishStory.classList.add('active');
+            fireConfetti();
+        }
+
+        function restartStory() {
+            document.getElementById('wishStory').classList.remove('active');
+            document.getElementById('wishStory').style.display = 'none';
+            document.getElementById('mainStory').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
